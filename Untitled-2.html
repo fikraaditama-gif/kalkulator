@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Kalkulator Geometri Lengkap | Luas, Keliling, Volume, Luas Permukaan</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 1.5rem;
+    }
+
+    .container {
+      max-width: 1300px;
+      margin: 0 auto;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 2rem;
+      color: white;
+    }
+
+    .header h1 {
+      font-size: 2.2rem;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+      letter-spacing: -0.5px;
+    }
+
+    .header p {
+      font-size: 1rem;
+      opacity: 0.95;
+      margin-top: 0.5rem;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.98);
+      border-radius: 2rem;
+      box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+      padding: 2rem;
+    }
+
+    .flex-panel {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    .panel-kiri {
+      flex: 1.2;
+      min-width: 280px;
+      background: #f8fafc;
+      border-radius: 1.5rem;
+      padding: 1.5rem;
+    }
+
+    .panel-kanan {
+      flex: 2;
+      min-width: 300px;
+      background: linear-gradient(135deg, #fefefe, #ffffff);
+      border-radius: 1.5rem;
+      padding: 1.5rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    label {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-weight: 600;
+      color: #1e293b;
+      margin-bottom: 0.6rem;
+      font-size: 0.95rem;
+    }
+
+    select, input {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 1rem;
+      border: 2px solid #e2e8f0;
+      background: white;
+      font-size: 1rem;
+      transition: all 0.2s;
+      outline: none;
+    }
+
+    select:focus, input:focus {
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    button {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 1rem;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      width: 100%;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      margin-top: 0.8rem;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+    }
+
+    .btn-secondary {
+      background: linear-gradient(135deg, #64748b, #475569);
+    }
+
+    .dimensi-area {
+      background: white;
+      border-radius: 1.2rem;
+      padding: 1rem;
+      border: 2px solid #e2e8f0;
+      margin-top: 1rem;
+    }
+
+    .dimensi-title {
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: #1e293b;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .input-row {
+      margin-bottom: 1rem;
+    }
+
+    .input-row label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #475569;
+      margin-bottom: 0.3rem;
+    }
+
+    .hasil-card {
+      background: linear-gradient(135deg, #f1f5f9, #ffffff);
+      border-radius: 1.2rem;
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .hasil-label {
+      font-size: 0.9rem;
+      color: #64748b;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .hasil-nilai {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: #1e293b;
+      margin: 0.5rem 0;
+      word-break: break-word;
+      font-family: 'Courier New', monospace;
+    }
+
+    .rumus-info {
+      font-size: 0.8rem;
+      color: #64748b;
+      background: #f8fafc;
+      padding: 0.8rem;
+      border-radius: 1rem;
+      margin-top: 1rem;
+    }
+
+    .info-badge {
+      display: inline-block;
+      background: #e0e7ff;
+      padding: 0.25rem 0.75rem;
+      border-radius: 1rem;
+      font-size: 0.7rem;
+      color: #4338ca;
+    }
+
+    @media (max-width: 768px) {
+      .card {
+        padding: 1rem;
+      }
+      .hasil-nilai {
+        font-size: 1.8rem;
+      }
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 1.5rem;
+      color: white;
+      font-size: 0.8rem;
+      opacity: 0.9;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>📐 Kalkulator Geometri Pro</h1>
+    <p>Hitung Luas, Keliling, Volume & Luas Permukaan dengan Mudah</p>
+  </div>
+  
+  <div class="card">
+    <div class="flex-panel">
+      <!-- Panel Kiri: Pilihan Bangun dan Input -->
+      <div class="panel-kiri">
+        <div class="form-group">
+          <label>🎨 Pilih Bangun Geometri</label>
+          <select id="bangunSelect">
+            <optgroup label="Bangun Ruang (3D)">
+              <option value="kubus">🧊 Kubus</option>
+              <option value="balok">📦 Balok</option>
+              <option value="bola">⚽ Bola</option>
+              <option value="tabung">🥫 Tabung</option>
+              <option value="kerucut">🎩 Kerucut</option>
+              <option value="limas">🔺 Limas Segiempat</option>
+              <option value="prisma">📐 Prisma Segitiga</option>
+            </optgroup>
+            <optgroup label="Bangun Datar (2D)">
+              <option value="persegi">⬛ Persegi</option>
+              <option value="persegiPanjang">📏 Persegi Panjang</option>
+              <option value="lingkaran">⚪ Lingkaran</option>
+              <option value="segitiga">🔺 Segitiga</option>
+              <option value="jajarGenjang">🔷 Jajar Genjang</option>
+              <option value="trapesium">⏢ Trapesium</option>
+            </optgroup>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>📊 Jenis Perhitungan</label>
+          <select id="tipeSelect">
+            <option value="">-- Pilih perhitungan --</option>
+          </select>
+        </div>
+
+        <div class="dimensi-area">
+          <div class="dimensi-title">
+            <span>📏</span> Masukkan Ukuran
+          </div>
+          <div id="inputFields"></div>
+        </div>
+
+        <button id="hitungBtn">
+          <span>🧮</span> HITUNG SEKARANG
+        </button>
+        <button id="resetBtn" class="btn-secondary">
+          <span>🔄</span> Reset Semua
+        </button>
+      </div>
+
+      <!-- Panel Kanan: Hasil Perhitungan -->
+      <div class="panel-kanan">
+        <div class="hasil-card">
+          <div class="hasil-label" id="hasilLabel">Hasil Perhitungan</div>
+          <div class="hasil-nilai" id="hasilNilai">—</div>
+          <div class="rumus-info" id="rumusInfo">
+            💡 Pilih bangun dan jenis perhitungan, lalu masukkan ukuran
+          </div>
+          <div id="infoTambahan" style="margin-top: 0.8rem; font-size: 0.75rem; color: #94a3b8;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer>
+    ⚡ Akurat & Interaktif | Mendukung 12+ Bangun Geometri | Hasil akurat dengan rumus standar
+  </footer>
+</div>
+
+<script>
+  // Database semua bangun geometri dengan konfigurasi lengkap
+  const geometriData = {
+    kubus: {
+      nama: "Kubus",
+      kategori: "3D",
+      perhitungan: ["Volume", "Luas Permukaan"],
+      inputs: [
+        { label: "Panjang Rusuk (s)", key: "s", default: 5, min: 0.1 }
+      ],
+      rumus: {
+        "Volume": "V = s³",
+        "Luas Permukaan": "Lp = 6 × s²"
+      },
+      hitung: (type, nilai) => {
+        const s = nilai.s;
+        if (type === "Volume") return s * s * s;
+        if (type === "Luas Permukaan") return 6 * s * s;
+        return 0;
+      }
+    },
+    balok: {
+      nama: "Balok",
+      kategori: "3D",
+      perhitungan: ["Volume", "Luas Permukaan"],
+      inputs: [
+        { label: "Panjang (p)", key: "p", default: 6, min: 0.1 },
+        { label: "Lebar (l)", key: "l", default: 4, min: 0.1 },
+        { label: "Tinggi (t)", key: "t", default: 3, min: 0.1 }
+      ],
+      rumus: {
+        "Volume": "V = p × l × t",
+        "Luas Permukaan": "Lp = 2(pl + pt + lt)"
+      },
+      hitung: (type, nilai) => {
+        const { p, l, t } = nilai;
+        if (type === "Volume") return p * l * t;
+        if (type === "Luas Permukaan") return 2 * (p*l + p*t + l*t);
+        return 0;
+      }
+    },
+    bola: {
+      nama: "Bola",
+      kategori: "3D",
+      perhitungan: ["Volume", "Luas Permukaan"],
+      inputs: [
+        { label: "Jari-jari (r)", key: "r", default: 7, min: 0.1 }
+      ],
+      rumus: {
+        "Volume": "V = 4/3 × π × r³",
+        "Luas Permukaan": "Lp = 4 × π × r²"
+      },
+      hitung: (type, nilai) => {
+        const r = nilai.r;
+        if (type === "Volume") return (4/3) * Math.PI * Math.pow(r, 3);
+        if (type === "Luas Permukaan") return 4 * Math.PI * r * r;
+        return 0;
+      }
+    },
+    tabung: {
+      nama: "Tabung",
+      kategori: "3D",
+      perhitungan: ["Volume", "Luas Permukaan"],
+      inputs: [
+        { label: "Jari-jari alas (r)", key: "r", default: 5, min: 0.1 },
+        { label: "Tinggi (t)", key: "t", default: 10, min: 0.1 }
+      ],
+      rumus: {
+        "Volume": "V = π × r² × t",
+        "Luas Permukaan": "Lp = 2πr(r + t)"
+      },
+      hitung: (type, nilai) => {
+        const { r, t } = nilai;
+        if (type === "Volume") return Math.PI * r * r * t;
+        if (type === "Luas Permukaan") return 2 * Math.PI * r * (r + t);
+        return 0;
+      }
+    },
+    kerucut: {
+      nama: "Kerucut",
+      kategori: "3D",
+      perhitungan: ["Volume", "Luas Permukaan"],
+      inputs: [
+        { label: "Jari-jari alas (r)", key: "r", default: 4, min: 0.1 },
+        { label: "Tinggi (t)", key: "t", default: 9, min: 0.1 }
+      ],
+      rumus: {
+        "Volume": "V = 1/3 × π × r² × t",
+        "Luas Permukaan": "Lp = πr(r + s), s = √(r² + t²)"
+      },
+      hitung: (type, nilai) => {
+        const { r, t } = nilai;
+        const s = Math.sqrt(r * r + t * t);
+        if (type === "Volume") return (1/3) * Math.PI * r * r * t;
+        if (type === "Luas Permukaan") return Math.PI * r * (r + s);
+        return 0;
+      }
+    },
+    limas: {
+      nama: "Limas Segiempat",
+      kategori: "3D",
+      perhitungan: ["Volume", "Luas Permukaan"],
+      inputs: [
+        { label: "Panjang sisi alas (s)", key: "s", default: 5, min: 0.1 },
+        { label: "Tinggi limas (t)", key: "t", default: 6, min: 0.1 }
+      ],
+      rumus: {
+        "Volume": "V = 1/3 × s² × t",
+        "Luas Permukaan": "Lp = s² + 2 × s × √((s/2)² + t²)"
+      },
+      hitung: (type, nilai) => {
+        const { s, t } = nilai;
+        if (type === "Volume") return (1/3) * s * s * t;
+        if (type === "Luas Permukaan") {
+          const tinggiSisi = Math.sqrt(Math.pow(s/2, 2) + t * t);
+          return s * s + 2 * s * tinggiSisi;
+        }
+        return 0;
+      }
+    },
+    prisma: {
+      nama: "Prisma Segitiga",
+      kategori: "3D",
+      perhitungan: ["Volume", "Luas Permukaan"],
+      inputs: [
+        { label: "Alas segitiga (a)", key: "a", default: 6, min: 0.1 },
+        { label: "Tinggi segitiga (t_seg)", key: "t_seg", default: 4, min: 0.1 },
+        { label: "Tinggi prisma (tp)", key: "tp", default: 10, min: 0.1 },
+        { label: "Sisi tegak b (opsional untuk keliling)", key: "b", default: 5, min: 0.1 },
+        { label: "Sisi tegak c (opsional)", key: "c", default: 5, min: 0.1 }
+      ],
+      rumus: {
+        "Volume": "V = (½ × a × t_seg) × tp",
+        "Luas Permukaan": "Lp = (2 × ½ × a × t_seg) + (a+b+c) × tp"
+      },
+      hitung: (type, nilai) => {
+        const { a, t_seg, tp, b, c } = nilai;
+        const luasAlas = 0.5 * a * t_seg;
+        const keliling = a + b + c;
+        if (type === "Volume") return luasAlas * tp;
+        if (type === "Luas Permukaan") return (2 * luasAlas) + (keliling * tp);
+        return 0;
+      }
+    },
+    persegi: {
+      nama: "Persegi",
+      kategori: "2D",
+      perhitungan: ["Luas", "Keliling"],
+      inputs: [
+        { label: "Panjang sisi (s)", key: "s", default: 6, min: 0.1 }
+      ],
+      rumus: {
+        "Luas": "L = s × s",
+        "Keliling": "K = 4 × s"
+      },
+      hitung: (type, nilai) => {
+        const s = nilai.s;
+        if (type === "Luas") return s * s;
+        if (type === "Keliling") return 4 * s;
+        return 0;
+      }
+    },
+    persegiPanjang: {
+      nama: "Persegi Panjang",
+      kategori: "2D",
+      perhitungan: ["Luas", "Keliling"],
+      inputs: [
+        { label: "Panjang (p)", key: "p", default: 8, min: 0.1 },
+        { label: "Lebar (l)", key: "l", default: 5, min: 0.1 }
+      ],
+      rumus: {
+        "Luas": "L = p × l",
+        "Keliling": "K = 2(p + l)"
+      },
+      hitung: (type, nilai) => {
+        const { p, l } = nilai;
+        if (type === "Luas") return p * l;
+        if (type === "Keliling") return 2 * (p + l);
+        return 0;
+      }
+    },
+    lingkaran: {
+      nama: "Lingkaran",
+      kategori: "2D",
+      perhitungan: ["Luas", "Keliling"],
+      inputs: [
+        { label: "Jari-jari (r)", key: "r", default: 7, min: 0.1 }
+      ],
+      rumus: {
+        "Luas": "L = π × r²",
+        "Keliling": "K = 2 × π × r"
+      },
+      hitung: (type, nilai) => {
+        const r = nilai.r;
+        if (type === "Luas") return Math.PI * r * r;
+        if (type === "Keliling") return 2 * Math.PI * r;
+        return 0;
+      }
+    },
+    segitiga: {
+      nama: "Segitiga",
+      kategori: "2D",
+      perhitungan: ["Luas", "Keliling"],
+      inputs: [
+        { label: "Panjang alas (a)", key: "a", default: 6, min: 0.1 },
+        { label: "Tinggi (t)", key: "t", default: 4, min: 0.1 },
+        { label: "Sisi b", key: "b", default: 5, min: 0.1 },
+        { label: "Sisi c", key: "c", default: 5, min: 0.1 }
+      ],
+      rumus: {
+        "Luas": "L = ½ × a × t",
+        "Keliling": "K = a + b + c"
+      },
+      hitung: (type, nilai) => {
+        const { a, t, b, c } = nilai;
+        if (type === "Luas") return 0.5 * a * t;
+        if (type === "Keliling") return a + b + c;
+        return 0;
+      }
+    },
+    jajarGenjang: {
+      nama: "Jajar Genjang",
+      kategori: "2D",
+      perhitungan: ["Luas", "Keliling"],
+      inputs: [
+        { label: "Panjang alas (a)", key: "a", default: 8, min: 0.1 },
+        { label: "Tinggi (t)", key: "t", default: 5, min: 0.1 },
+        { label: "Panjang sisi miring (b)", key: "b", default: 6, min: 0.1 }
+      ],
+      rumus: {
+        "Luas": "L = a × t",
+        "Keliling": "K = 2 × (a + b)"
+      },
+      hitung: (type, nilai) => {
+        const { a, t, b } = nilai;
+        if (type === "Luas") return a * t;
+        if (type === "Keliling") return 2 * (a + b);
+        return 0;
+      }
+    },
+    trapesium: {
+      nama: "Trapesium",
+      kategori: "2D",
+      perhitungan: ["Luas", "Keliling"],
+      inputs: [
+        { label: "Sisi sejajar a", key: "a", default: 10, min: 0.1 },
+        { label: "Sisi sejajar b", key: "b", default: 6, min: 0.1 },
+        { label: "Tinggi (t)", key: "t", default: 4, min: 0.1 },
+        { label: "Sisi c (kaki kiri)", key: "c", default: 5, min: 0.1 },
+        { label: "Sisi d (kaki kanan)", key: "d", default: 5, min: 0.1 }
+      ],
+      rumus: {
+        "Luas": "L = ½ × (a + b) × t",
+        "Keliling": "K = a + b + c + d"
+      },
+      hitung: (type, nilai) => {
+        const { a, b, t, c, d } = nilai;
+        if (type === "Luas") return 0.5 * (a + b) * t;
+        if (type === "Keliling") return a + b + c + d;
+        return 0;
+      }
+    }
+  };
+
+  // DOM Elements
+  const bangunSelect = document.getElementById('bangunSelect');
+  const tipeSelect = document.getElementById('tipeSelect');
+  const inputFieldsDiv = document.getElementById('inputFields');
+  const hitungBtn = document.getElementById('hitungBtn');
+  const resetBtn = document.getElementById('resetBtn');
+  const hasilNilai = document.getElementById('hasilNilai');
+  const hasilLabel = document.getElementById('hasilLabel');
+  const rumusInfo = document.getElementById('rumusInfo');
+  const infoTambahan = document.getElementById('infoTambahan');
+
+  let currentBangun = null;
+
+  // Update tampilan berdasarkan bangun yang dipilih
+  function updateBangun() {
+    const bangunKey = bangunSelect.value;
+    currentBangun = geometriData[bangunKey];
+    
+    if (!currentBangun) return;
+    
+    // Update pilihan perhitungan
+    tipeSelect.innerHTML = '<option value="">-- Pilih perhitungan --</option>';
+    currentBangun.perhitungan.forEach(type => {
+      const option = document.createElement('option');
+      option.value = type;
+      option.textContent = type;
+      tipeSelect.appendChild(option);
+    });
+    
+    // Update input fields
+    updateInputFields();
+    
+    // Reset hasil
+    resetHasil();
+  }
+  
+  // Membuat input field dinamis
+  function updateInputFields() {
+    if (!currentBangun) return;
+    
+    let html = '';
+    currentBangun.inputs.forEach(input => {
+      html += `
+        <div class="input-row">
+          <label>${input.label}</label>
+          <input type="number" id="input_${input.key}" 
+                 value="${input.default}" 
+                 step="any" 
+                 min="${input.min || 0}"
+                 placeholder="Masukkan ${input.label.toLowerCase()}">
+        </div>
+      `;
+    });
+    inputFieldsDiv.innerHTML = html;
+  }
+  
+  // Mengambil nilai dari input
+  function getInputValues() {
+    if (!currentBangun) return {};
+    
+    const values = {};
+    currentBangun.inputs.forEach(input => {
+      const element = document.getElementById(`input_${input.key}`);
+      if (element) {
+        let val = parseFloat(element.value);
+        if (isNaN(val)) val = 0;
+        values[input.key] = val;
+      }
+    });
+    return values;
+  }
+  
+  // Melakukan perhitungan
+  function hitung() {
+    if (!currentBangun) {
+      hasilNilai.innerHTML = "⚠️ Pilih bangun terlebih dahulu";
+      return;
+    }
+    
+    const selectedType = tipeSelect.value;
+    if (!selectedType) {
+      hasilNilai.innerHTML = "⚠️ Pilih jenis perhitungan";
+      rumusInfo.innerHTML = "Silakan pilih luas, keliling, volume, atau luas permukaan";
+      return;
+    }
+    
+    const values = getInputValues();
+    
+    // Validasi nilai positif
+    let hasError = false;
+    for (let [key, val] of Object.entries(values)) {
+      if (val <= 0) {
+        hasError = true;
+        break;
+      }
+    }
+    
+    if (hasError) {
+      hasilNilai.innerHTML = "❌ Semua ukuran harus lebih dari 0";
+      rumusInfo.innerHTML = "Masukkan nilai positif untuk setiap dimensi";
+      return;
+    }
+    
+    try {
+      const result = currentBangun.hitung(selectedType, values);
+      if (isNaN(result) || !isFinite(result)) {
+        hasilNilai.innerHTML = "❌ Perhitungan tidak valid";
+        return;
+      }
+      
+      // Format hasil (maksimal 4 desimal)
+      let formattedResult = result.toFixed(4).replace(/\.?0+$/, '');
+      if (formattedResult.endsWith('.')) formattedResult = formattedResult.slice(0, -1);
+      
+      // Tentukan satuan
+      let satuan = "";
+      if (selectedType.includes("Volume")) satuan = " satuan³";
+      else if (selectedType.includes("Luas") || selectedType.includes("Permukaan")) satuan = " satuan²";
+      else if (selectedType.includes("Keliling")) satuan = " satuan";
+      
+      hasilNilai.innerHTML = formattedResult + satuan;
+      hasilLabel.innerHTML = `📐 Hasil ${selectedType} ${currentBangun.nama}`;
+      rumusInfo.innerHTML = `📖 Rumus: ${currentBangun.rumus[selectedType] || 'Rumus standar'}`;
+      
+      let tambahan = "";
+      if (currentBangun.nama === "Lingkaran" || currentBangun.nama === "Bola" || currentBangun.nama === "Tabung" || currentBangun.nama === "Kerucut") {
+        tambahan = "π ≈ 3.141592653589793";
+      }
+      infoTambahan.innerHTML = tambahan;
+      
+    } catch (error) {
+      hasilNilai.innerHTML = "❌ Error dalam perhitungan";
+      rumusInfo.innerHTML = "Terjadi kesalahan, periksa kembali input Anda";
+      console.error(error);
+    }
+  }
+  
+  function resetHasil() {
+    hasilNilai.innerHTML = "—";
+    hasilLabel.innerHTML = "Hasil Perhitungan";
+    rumusInfo.innerHTML = "💡 Pilih bangun dan jenis perhitungan, lalu masukkan ukuran";
+    infoTambahan.innerHTML = "";
+  }
+  
+  function resetSemua() {
+    if (currentBangun) {
+      currentBangun.inputs.forEach(input => {
+        const element = document.getElementById(`input_${input.key}`);
+        if (element) {
+          element.value = input.default;
+        }
+      });
+    }
+    tipeSelect.value = "";
+    resetHasil();
+  }
+  
+  // Event listeners
+  bangunSelect.addEventListener('change', () => {
+    updateBangun();
+  });
+  
+  tipeSelect.addEventListener('change', () => {
+    resetHasil();
+  });
+  
+  hitungBtn.addEventListener('click', () => {
+    hitung();
+  });
+  
+  resetBtn.addEventListener('click', () => {
+    resetSemua();
+  });
+  
+  // Inisialisasi awal
+  updateBangun();
+</script>
+</body>
+</html>
